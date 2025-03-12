@@ -1,0 +1,131 @@
+/*Тихоненко*/
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #969696;
+}
+
+header {
+    background-color: #fbc884;
+    padding: 10px;
+    text-align: center;
+}
+
+.logo img {
+    width: 100px;
+}
+
+
+nav ul li {
+    display: inline; /* Горизонтальное расположение*/
+    margin: 15px;
+}
+
+nav ul li a {
+    text-decoration: none; /*убираем подчеркивание*/
+    color: #101010;
+}
+
+/* Секция с приветствием */
+section.head {
+    background-color: #595959;
+    padding: 20px;
+    text-align: center;
+}
+
+section.head h2 {
+    font-size: 28px;
+}
+
+section.head p {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+}
+
+section.head .kat-button {
+    padding: 10px 20px;
+    background-color:  #f5af53;
+    color: #000000;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+section.head .kat-button:hover {
+    background-color: #c68024;
+}
+
+/* Боковая панель */
+aside {
+    width: 25%;
+    float: left;
+    padding: 20px;
+    background-color: #e2e2e2;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+aside ul {
+    list-style: none; 
+}
+
+aside ul li {
+    margin-bottom: 10px; /*отступы между строчками */
+}
+
+aside ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+}
+
+aside ul li a:hover {
+    text-decoration: underline;
+}
+
+/*Аббасова*/
+/* Основной контент */
+article {
+    width: 75%;
+    float: left;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+article h3 {
+    margin: 20px;
+    font-size: 22px;
+}
+
+
+.book {
+    width: 30%;
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+.book img {
+    width: 300px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.book h4 {
+    margin: 10px;
+    font-size: 18px;
+}
+
+.book p {
+    font-size: 14px;
+}
+
+/* Футер */
+footer {
+    clear: both;
+    background-color: #fbc884;
+    padding: 20px;
+    text-align: left; 
+}
