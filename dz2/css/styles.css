@@ -10,11 +10,11 @@ header {
     position: fixed;
     width: 100%;
     background-color: white; 
-    z-index: 1000;
+    z-index: 100;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
 }
 
-.head {
+.top-navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -125,9 +125,6 @@ nav ul li a:hover::after {
     margin-top: 10px; 
     margin-bottom: 25px; 
 }
-
-
-
 
 
 h3 {
@@ -259,7 +256,7 @@ footer {
 
 
 @media (max-width: 600px) {
-    .head {
+    .top-navigation {
         flex-direction: column; 
         align-items: center;
 
@@ -350,7 +347,7 @@ footer {
 
 @media (min-width: 600px) and (max-width: 1024px) {
 
-    .head {
+    .top-navigation {
         flex-direction: column; 
         align-items: center;
     }

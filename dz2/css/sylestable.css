@@ -23,7 +23,6 @@ td {
     height: 80px;
 }
 
-
 @media (max-width: 600px) {
     .table-container {
         padding: 10px;
