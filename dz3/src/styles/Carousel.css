@@ -1,0 +1,58 @@
+.carousel-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+   
+  }
+  
+  .carousel-image {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0; /* чтобы фото не растягивалось */
+    transition: opacity 1s ease; /*плавный переход */
+  }
+  
+  .carousel-image.active {
+    opacity: 1;
+  }
+  
+  /* Стрелки*/
+  .arrow {
+    position: absolute;
+    top: 50%;
+    background: transparent; /*прозрачный фон */
+    border: none;
+    font-size: 48px;
+    color: #2b3939;
+    cursor: pointer;
+    z-index: 3;
+    transition: color 0.3s ease;
+  }
+  
+  .arrow:hover {
+    color:#7ca397;
+  }
+  
+  /* расположение */
+  .arrow.left {
+    left: 20px;
+  }
+  
+  .arrow.right {
+    right: 20px;
+  }
+  
+
+  @media (max-width: 600px) {
+    .arrow {
+      display: none;
+    
+    }    
+  }

@@ -1,0 +1,178 @@
+.table-container {
+    display: grid;
+    place-items: center;
+    min-height: 70vh;
+}
+
+table {
+    border-collapse: collapse;
+    width: 1000px;
+}
+td {
+    border: 1.5px solid #000;
+    outline: 1px solid #568183;
+    outline-offset: -4px;
+    padding: 12px 15px;
+    text-align: left;
+    vertical-align: top;
+    height: 30px;
+    width: 200px;
+}
+
+.merged-v {
+    height: 80px;
+}
+
+
+.hiking-poll {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #fdfdfd;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  
+}
+
+.poll-question p {
+  font-size: 20px;
+}
+
+.poll-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.poll-options button,
+.poll-options label {
+  font-size: 16px;
+  padding: 12px;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.poll-options button:hover,
+.poll-options label:hover {
+  background-color: #f0f0f0;
+}
+
+.poll-options button.selected {
+  background-color: #d4edda;
+  border-color: #568183; 
+  color: 2b3939;
+  font-weight: bold;
+}
+
+textarea {
+  font-size: 15px;
+  padding: 10px; 
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #2b3939;
+}
+
+.poll-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.poll-nav button {
+  font-size: 16px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #7ca397; 
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.poll-nav button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.poll-results h4 {
+  font-size: 20px;
+}
+
+.poll-nav-btn {
+  font-size: 16px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #7ca397;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.poll-nav-btn:hover {
+  background-color: #67887d;
+}
+
+@media (max-width: 600px) {
+
+  .table-container {
+    padding: 10px;
+    padding-top: 100px;
+    display: flex;
+    justify-content: flex-start; 
+    overflow-x: auto; 
+    min-height: 100vh;
+}
+
+table {
+    min-width: 600px; 
+    max-height: 60vh;
+}
+
+  .hiking-poll {
+    margin: 10px; 
+    padding: 15px; 
+    max-width: 100%; 
+  }
+
+
+  .poll-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+
+
+@media (min-width: 600px) and (max-width: 1024px) {
+  .table-container {
+      padding: 10px;
+      display: flex;
+      justify-content: center; 
+      overflow-x: auto; 
+  }
+  
+  table {
+      min-width: 600px;
+      max-height: 60vh;
+  }
+
+  .hiking-poll {
+    margin-top: -100px;
+    max-width: 90%;
+  }
+
+  .poll-options button,
+  .poll-options label {
+    font-size: 20zpx;
+  }
+
+}
+
