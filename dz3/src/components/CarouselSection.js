@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; //useEffect  для аватопереключение картинки
 
 import bg1 from '../images/background.png';
 import bg2 from '../images/background2.jpg';
@@ -9,18 +9,18 @@ import '../styles/Carousel.css';
 const images = [bg1, bg2, bg3];
 
 function CarouselSection() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0); // 0 индекс первой картинки
 
   useEffect(() => {
     const interval = setInterval(() => {
-      nextImage();
+      nextImage(); //переключает картинку каждые 5 сек
     }, 5000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval); //старый таймер удаляется.Чтобы не было наложения нескольких интервалов
   }, [currentIndex]);
 
   const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
+    setCurrentIndex((prev) => (prev + 1) % images.length); // остаток от деления кол-ва картинок чтобы переход был циклический
   };
 
   const prevImage = () => {

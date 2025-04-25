@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react'; 
+import { Link } from 'react-router-dom'; //чтобы делать переходы по страницам 
 
 import logo from '../images/logo.png';  
 import basket from '../images/basket.png';
@@ -8,20 +8,20 @@ import lk from '../images/lk.png';
 import '../styles/burger.css';
 
 function BurgerMenu() {
-  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
-  const menuRef = useRef(null);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false); //по умолчанию закрыть  setmob для изм состояния  
+
+  const menuRef = useRef(null); // сслылки чтобы отслеживать клики вне этих элементов (меню и кнопки меню)
   const burgerRef = useRef(null);
 
-  const toggleMenu = () => {
-    setMobileMenuOpen(!isMobileMenuOpen);
+  const toggleMenu = () => { 
+    setMobileMenuOpen(!isMobileMenuOpen); //открыто закрыто меню
   };
 
   // Закрытие меню при клике вне его области
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
-        menuRef.current && !menuRef.current.contains(event.target) && 
+        menuRef.current && !menuRef.current.contains(event.target) && // target — проверяет, что клик был НЕ внутри меню, current проверка на наличие ссылки
         burgerRef.current && !burgerRef.current.contains(event.target)
       ) {
         setMobileMenuOpen(false); 
@@ -33,7 +33,7 @@ function BurgerMenu() {
 
    
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);  // чтобы обработчик не остался висеть и срабатывать на каждый клик по странице
     };
   }, []);
 
@@ -46,11 +46,11 @@ function BurgerMenu() {
         </div>
 
         <div 
-          className={`burger ${isMobileMenuOpen ? 'active' : ''}`} 
-          onClick={toggleMenu}
+          className={`burger ${isMobileMenuOpen ? 'active' : ''}`} // для стилей 
+          onClick={toggleMenu} //Когда пользователь кликает на бургер-кнопку, вызывается функция toggleMenu, если закрыто откроет и наоборот
           ref={burgerRef} 
         >
-          <span></span>
+          <span></span> {/*полоски бургера */}
           <span></span>
           <span></span>
         </div>

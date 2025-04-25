@@ -19,8 +19,8 @@ function ContactForm() {
     let error = '';
     switch (name) {
       case 'username':
-        if (!value.trim()) {
-          error = 'Name is required. Example: JPavel Wild';
+        if (!value.trim()) { // trim удаляет пробелы 
+          error = 'Name is required. Example: Pavel Wild';
         } else if (!/^[A-Za-zА-Яа-яЁё\s]+$/.test(value)) {
           error = 'Only letters allowed. Example: Pavel Wild';
         }
