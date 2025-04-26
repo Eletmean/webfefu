@@ -48,8 +48,8 @@ function ContactForm() {
     return error;
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (e) => { // когда происходят изменения в поле
+    const { name, value } = e.target; //e.target — это элемент формы например <input>
     setFormData(prev => ({ ...prev, [name]: value }));
 
     // Живая валидация
@@ -58,9 +58,9 @@ function ContactForm() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // чтобы страница не перезагружалась при нажатии на отправить
     const newErrors = {};
-    Object.entries(formData).forEach(([key, value]) => {
+    Object.entries(formData).forEach(([key, value]) => { //Object.entries(formData) превращает объект в массив пар а forEach перебирает пары и вызывает валидатор
       const error = validateField(key, value);
       if (error) newErrors[key] = error;
     });
@@ -80,10 +80,10 @@ function ContactForm() {
               type="text"
               name="username"
               placeholder="Name"
-              value={formData.username}
+              value={formData.username} // синхронизация с состоянием formData.username
               onChange={handleChange}
             />
-            {errors.username && <span className="error">{errors.username}</span>}
+            {errors.username && <span className="error">{errors.username}</span>} {/*вывод ошибки если она есть */}
           </div>
 
           <div className="form-group">
@@ -126,7 +126,7 @@ function ContactForm() {
       </form>
 
       {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
+        <Modal onClose={() => setIsModalOpen(false)}> {/*onClose срабатывает когда закрываем окно на крестик */}
           <h2>Спасибо, что заполнили форму!</h2>
         </Modal>
       )}

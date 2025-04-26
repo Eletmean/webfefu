@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 const HikingPoll = () => {
-  const [currentQ, setCurrentQ] = useState(0);
+  const [currentQ, setCurrentQ] = useState(0); //currentQ индекс текущего вопроса указывает, на каком вопросе находится пользователь.
   const [answers, setAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
 
@@ -54,17 +54,17 @@ const HikingPoll = () => {
     } else if (checkFreq === "Раз в сезон" && ["50-70л", "70л+"].includes(backpack)) {
       return "Опытный альпинист";
     } else {
-      return "Легкий треккер";
+      return "Любитель";
     }
   };
 
   const isAnswered = () => {
     const ans = answers[currentQ];
     return questions[currentQ].type === 'text'
-      ? !!ans?.trim()
-      : Array.isArray(ans)
+      ? !!ans?.trim() // если текст 
+      : Array.isArray(ans) // если множественный выбор 
         ? ans.length > 0
-        : !!ans;
+        : !!ans; //если один выбор 
   };
 
 

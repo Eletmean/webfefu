@@ -30,11 +30,11 @@ function CarouselSection() {
   return (
     <section className="info">
       <div className="carousel-container">
-        {images.map((img, index) => (
+        {images.map((img, index) => ( // map для перебора элементов массива
           <img
             key={index}
-            src={img}
-            alt={`background-${index}`}
+            src={img} 
+            alt={`background-${index}`} //текст, который будет отображаться, если картинка не загрузится
             className={`carousel-image ${index === currentIndex ? 'active' : ''}`}
           />
         ))}
