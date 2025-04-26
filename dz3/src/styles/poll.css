@@ -1,0 +1,178 @@
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+
+  .hiking-poll {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #fdfdfd;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+
+
+
+  .poll-question p {
+    font-size: 20px;
+  }
+  
+  .poll-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .poll-options button,
+  .poll-options label {
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .poll-options button:hover,
+  .poll-options label:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .poll-options button.selected {
+    background-color: #d4edda;
+    border-color: #568183; 
+    color: 2b3939;
+    font-weight: bold;
+  }
+  
+  textarea {
+    font-size: 15px;
+    padding: 10px; 
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  textarea:focus {
+    outline: none;
+    border-color: #2b3939;
+  }
+  
+  .poll-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .poll-nav button {
+    font-size: 16px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #7ca397; 
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .poll-nav button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .poll-results h4 {
+    font-size: 20px;
+  }
+  
+  .poll-nav-btn {
+    font-size: 16px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #7ca397;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .poll-nav-btn:hover {
+    background-color: #67887d;
+  }
+  
+  @media (max-width: 600px) {
+  
+    .hiking-poll {
+      margin: 10px; 
+      padding: 15px; 
+      max-width: 100%; 
+    }
+  
+  
+    .poll-nav {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+  
+  .name-input {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .name-input p {
+    font-size: 18px;
+  }
+  
+  .name-input input[type="text"] {
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: border-color 0.2s ease;
+  }
+  
+  .name-input input[type="text"]:focus {
+    outline: none;
+    border-color: #2b3939;
+  }
+  
+  .name-input .poll-nav-btn {
+    align-self: flex-start;
+  }
+  
+  
+  @media (min-width: 600px) and (max-width: 1024px) {
+    .hiking-poll {
+      margin-top: -100px;
+      max-width: 90%;
+    }
+  
+    .poll-options button,
+    .poll-options label {
+      font-size: 20zpx;
+    }
+  
+  }
+  
+
+  
+  

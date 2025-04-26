@@ -1,35 +1,36 @@
-// src/components/HikingPoll.js
 import React, { useState } from 'react';
 
 const HikingPoll = () => {
-  const [currentQ, setCurrentQ] = useState(0); //currentQ индекс текущего вопроса указывает, на каком вопросе находится пользователь.
+  const [name, setName] = useState('');
+  const [started, setStarted] = useState(false);
+  const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
 
   const questions = [
     {
       type: 'single',
-      question: "Какое снаряжение критично для горного похода?",
-      options: ["Палатка", "Спальник", "Коврик", "Вся тройка"]
+      question: "Which gear is essential for a mountain hike?",
+      options: ["Tent", "Sleeping bag", "Sleeping pad", "All three"]
     },
     {
       type: 'single',
-      question: "Как часто проверяете состояние снаряжения?",
-      options: ["Перед каждым походом", "Раз в сезон", "При поломке"]
+      question: "How often do you check your gear's condition?",
+      options: ["Before every hike", "Once a season", "When it breaks"]
     },
     {
       type: 'single',
-      question: "Какой рюкзак предпочитаете?",
-      options: ["30-50л", "50-70л", "70л+"]
+      question: "What size backpack do you prefer?",
+      options: ["30-50L", "50-70L", "70L+"]
     },
     {
       type: 'text',
-      question: "Какие трудности вы сталкивались в походах?",
+      question: "What difficulties have you faced on your hikes?"
     },
     {
       type: 'multi',
-      question: "Какие предметы вы обязательно берёте с собой?",
-      options: ["GPS", "Термос", "Аптечка", "Мультитул", "Запас еды", "Фонарик"]
+      question: "Which items do you always carry with you?",
+      options: ["GPS", "Thermos", "First aid kit", "Multitool", "Extra food", "Flashlight"]
     }
   ];
 
@@ -49,39 +50,56 @@ const HikingPoll = () => {
 
   const determineType = () => {
     const [gear, checkFreq, backpack] = [answers[0], answers[1], answers[2]];
-    if (gear === "Вся тройка" && checkFreq === "Перед каждым походом" && backpack === "70л+") {
-      return "Выживальщик";
-    } else if (checkFreq === "Раз в сезон" && ["50-70л", "70л+"].includes(backpack)) {
-      return "Опытный альпинист";
+    if (gear === "All three" && checkFreq === "Before every hike" && backpack === "70L+") {
+      return "Survivalist";
+    } else if (checkFreq === "Once a season" && ["50-70L", "70L+"].includes(backpack)) {
+      return "Experienced Mountaineer";
     } else {
-      return "Любитель";
+      return "Enthusiast";
     }
   };
 
   const isAnswered = () => {
     const ans = answers[currentQ];
     return questions[currentQ].type === 'text'
-      ? !!ans?.trim() // если текст 
-      : Array.isArray(ans) // если множественный выбор 
+      ? !!ans?.trim()
+      : Array.isArray(ans)
         ? ans.length > 0
-        : !!ans; //если один выбор 
+        : !!ans;
   };
 
-
-  
   return (
     <div className="hiking-poll">
-      <h3>Тест "Какой ты альпинист"</h3>
+      <h3>Quiz: What Type of Mountaineer Are You?</h3>
 
-      {showResults ? (
+      {!started ? (
+        <div className="name-input">
+          <p>Please enter your name to begin:</p>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your name"
+          />
+          <button
+            onClick={() => setStarted(true)}
+            disabled={!name.trim()}
+            className="poll-nav-btn"
+          >
+            Start Quiz
+          </button>
+        </div>
+      ) : showResults ? (
         <div className="poll-results">
-          <h4>Ваш тип: <em>{determineType()}</em></h4>
+          <h4>{name}, you are a <em>{determineType()}</em>!</h4>
           <button className="poll-nav-btn" onClick={() => {
             setShowResults(false);
             setAnswers({});
             setCurrentQ(0);
+            setStarted(false);
+            setName('');
           }}>
-            Пройти еще раз
+            Try Again
           </button>
         </div>
       ) : (
@@ -118,7 +136,7 @@ const HikingPoll = () => {
                   cols="40"
                   value={answers[currentQ] || ''}
                   onChange={(e) => handleAnswer(e.target.value)}
-                  placeholder="Введите ваш ответ..."
+                  placeholder="Type your answer here..."
                 />
               )}
             </div>
@@ -126,15 +144,15 @@ const HikingPoll = () => {
 
           <div className="poll-nav">
             {currentQ > 0 && (
-              <button onClick={() => setCurrentQ(currentQ - 1)}>← Назад</button>
+              <button onClick={() => setCurrentQ(currentQ - 1)}>← Back</button>
             )}
             {currentQ < questions.length - 1 ? (
               <button onClick={() => setCurrentQ(currentQ + 1)} disabled={!isAnswered()}>
-                Далее →
+                Next →
               </button>
             ) : (
               <button className="submit-btn" onClick={handleSubmit} disabled={!isAnswered()}>
-                Отправить
+                Submit
               </button>
             )}
           </div>

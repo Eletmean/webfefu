@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-
 import Modal from './Modal';
-
 import '../styles/ContactForm.css';
 
 function ContactForm() {
@@ -19,7 +17,7 @@ function ContactForm() {
     let error = '';
     switch (name) {
       case 'username':
-        if (!value.trim()) { // trim удаляет пробелы 
+        if (!value.trim()) {
           error = 'Name is required. Example: Pavel Wild';
         } else if (!/^[A-Za-zА-Яа-яЁё\s]+$/.test(value)) {
           error = 'Only letters allowed. Example: Pavel Wild';
@@ -27,16 +25,16 @@ function ContactForm() {
         break;
       case 'phone':
         if (!value.trim()) {
-          error = 'Phone is required. Example: 89123456789';
-        } else if (!/^\d{11}$/.test(value)) {
-          error = 'Phone must be exactly 11 digits. Example: 89123456789';
+          error = 'Phone is required. Example: +7 (912) 345-67-89';
+        } else if (!/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(value)) {
+          error = 'Format: +7 (912) 345-67-89';
         }
         break;
       case 'email':
         if (!value.trim()) {
-          error = 'Email is required. Example: name@mail.com';
-        } else if (!/\S+@\S+\.\S+/.test(value)) {
-          error = 'Invalid email. Example: name@mail.com';
+          error = 'Email is required.';
+        } else if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(value)) {
+          error = 'Email must use Latin letters only. Example: name@mail.com';
         }
         break;
       case 'message':
@@ -48,19 +46,43 @@ function ContactForm() {
     return error;
   };
 
-  const handleChange = (e) => { // когда происходят изменения в поле
-    const { name, value } = e.target; //e.target — это элемент формы например <input>
-    setFormData(prev => ({ ...prev, [name]: value }));
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    let maskedValue = value;
 
-    // Живая валидация
-    const error = validateField(name, value);
+    if (name === 'phone') {
+      // Маска для телефона: +7 (___) ___-__-__
+      maskedValue = value
+        .replace(/\D/g, '')             
+        .replace(/^7?/, '7')            
+        .slice(0, 11);                  
+
+      let formatted = '+7 ';
+      if (maskedValue.length > 1) {
+        formatted += `(${maskedValue.slice(1, 4)}`;
+      }
+      if (maskedValue.length >= 4) {
+        formatted += `) ${maskedValue.slice(4, 7)}`;
+      }
+      if (maskedValue.length >= 7) {
+        formatted += `-${maskedValue.slice(7, 9)}`;
+      }
+      if (maskedValue.length >= 9) {
+        formatted += `-${maskedValue.slice(9, 11)}`;
+      }
+      maskedValue = formatted;
+    }
+
+    setFormData(prev => ({ ...prev, [name]: maskedValue }));
+
+    const error = validateField(name, maskedValue);
     setErrors(prev => ({ ...prev, [name]: error }));
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // чтобы страница не перезагружалась при нажатии на отправить
+    e.preventDefault();
     const newErrors = {};
-    Object.entries(formData).forEach(([key, value]) => { //Object.entries(formData) превращает объект в массив пар а forEach перебирает пары и вызывает валидатор
+    Object.entries(formData).forEach(([key, value]) => {
       const error = validateField(key, value);
       if (error) newErrors[key] = error;
     });
@@ -80,17 +102,17 @@ function ContactForm() {
               type="text"
               name="username"
               placeholder="Name"
-              value={formData.username} // синхронизация с состоянием formData.username
+              value={formData.username}
               onChange={handleChange}
             />
-            {errors.username && <span className="error">{errors.username}</span>} {/*вывод ошибки если она есть */}
+            {errors.username && <span className="error">{errors.username}</span>}
           </div>
 
           <div className="form-group">
             <input
               type="tel"
               name="phone"
-              placeholder="Phone"
+              placeholder="+7 (___) ___-__-__"
               value={formData.phone}
               onChange={handleChange}
             />
@@ -126,8 +148,8 @@ function ContactForm() {
       </form>
 
       {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}> {/*onClose срабатывает когда закрываем окно на крестик */}
-          <h2>Спасибо, что заполнили форму!</h2>
+        <Modal onClose={() => setIsModalOpen(false)}>
+          <h2>Thank you for filling out the form!</h2>
         </Modal>
       )}
     </>

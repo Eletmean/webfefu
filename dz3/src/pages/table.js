@@ -2,43 +2,28 @@ import React from 'react';
 import '../styles/styletable.css';
 
 import BurgerMenu from '../components/BurgerMenu';
-import HikingPoll from '../components/HikingPoll';
 import Footer from '../components/Footer';
 
 function TablePage() {
   return (
-    <div className="app">
+    <div className="page-wrapper">
+      <BurgerMenu />
 
-       <BurgerMenu/>
-       
-      <div className="table-container">
-        <table>
-          <tbody>
+      <div className="content">
+        <div className="table-container">
+          <table>
+            <tbody>
             <tr>
               <td></td>
               <td></td>
               <td></td>
-              <td className="merged-h" colSpan="2">Объединены ячейки</td>
+              <td className="merged-h" colSpan="2">Cells merged</td>
             </tr>
             
             <tr>
-              <td className="merged-h" colSpan="2">Объединены ячейки</td>
+              <td className="merged-h" colSpan="2">Cells merged</td>
               <td></td>
               <td></td>
-              <td></td>
-            </tr>
-            
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            
-            <tr>
-              <td></td>
-              <td className="merged-h" colSpan="3">Объединены ячейки</td>
               <td></td>
             </tr>
             
@@ -51,7 +36,21 @@ function TablePage() {
             </tr>
             
             <tr>
-              <td className="merged-h" colSpan="2">Объединены ячейки</td>
+              <td></td>
+              <td className="merged-h" colSpan="3">Cells merged</td>
+              <td></td>
+            </tr>
+            
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            
+            <tr>
+              <td className="merged-h" colSpan="2">Cells merged</td>
               <td></td>
               <td></td>
               <td></td>
@@ -66,13 +65,12 @@ function TablePage() {
             </tr>
             
             <tr></tr>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <HikingPoll/>
-      <Footer/>
-
+      <Footer />
     </div>
   );
 }

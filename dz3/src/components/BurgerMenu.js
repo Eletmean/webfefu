@@ -59,7 +59,7 @@ function BurgerMenu() {
           <ul>
           <li><Link to="/" className="nav-item">HOME</Link></li>
           <li><Link to="/table" className="nav-item">ABOUT</Link></li>
-          <li><Link to="/store" className="nav-item">STORE</Link></li>
+          <li><Link to="/poll" className="nav-item">POLL</Link></li>
           <li><Link to="/contact" className="nav-item">CONTACT</Link></li>
           <li><Link to="/cart" className="nav-item">
            <img src={basket} alt="basket" className="icon" />
