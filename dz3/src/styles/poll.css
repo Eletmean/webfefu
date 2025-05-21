@@ -1,178 +1,235 @@
+
 .page-wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-top: 40px;
+}
+
+
+.hiking-poll {
+  width: 100%;
+  max-width: 600px;
+  height: 600px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #fdfdfd;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.start-image,
+.result-image {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+
+.poll-question p {
+  font-size: 20px;
+  margin: 0 0 12px;
+}
+
+
+.poll-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+
+.poll-options button,
+.poll-options label {
+  font-size: 16px;
+  padding: 10px 12px;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  height: 45px;
+  display: flex;
+  align-items: center;
+}
+
+.poll-options button:hover,
+.poll-options label:hover {
+  background-color: #f0f0f0;
+}
+
+.poll-options button.selected {
+  background-color: #d4edda;
+  border-color: #568183;
+  color: #2b3939;
+  font-weight: bold;
+}
+
+
+textarea {
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #2b3939;
+}
+
+
+.poll-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  width: 100%;
+}
+
+.poll-nav button,
+.poll-nav-btn,
+.try-again-btn,
+.name-input .poll-nav-btn {
+  font-size: 16px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #7ca397;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poll-nav button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.poll-nav-btn:hover,
+.try-again-btn:hover {
+  background-color: #67887d;
+}
+
+
+.name-input {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.name-input p {
+  font-size: 18px;
+  margin: 0;
+}
+
+.name-input input[type="text"] {
+  font-size: 16px;
+  padding: 10px 12px;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: border-color 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.name-input input[type="text"]:focus {
+  outline: none;
+  border-color: #2b3939;
+}
+
+
+.poll-results {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+}
+
+.poll-results h4 {
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+
+.poll-results h2 {
+  font-size: 20px;
+  margin: 0 0 20px;
+}
+
+.hiking-poll h3 {
+  margin-bottom: 30px;
+}
+
+.result-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  justify-content: center;
+}
+
+.result-type {
+  font-weight: bold;
+  color: #2b3939;
+}
+
+
+@media (min-width: 600px) and (max-width: 1024px) {
   .content {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-top: 70px;
     padding: 20px;
-    box-sizing: border-box;
   }
-  
+
+  .poll-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .content {
+    margin-top: 100px; 
+    padding: 15px;
+  }
 
   .hiking-poll {
     width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    border-radius: 15px;
-    background-color: #fdfdfd;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    height: 700px;
   }
-  
 
-
-
-  .poll-question p {
-    font-size: 20px;
-  }
-  
-  .poll-options {
-    display: flex;
+  .poll-nav {
     flex-direction: column;
     gap: 8px;
   }
-  
-  .poll-options button,
-  .poll-options label {
-    font-size: 16px;
-    padding: 12px;
-    border: 1px solid #aaa;
-    border-radius: 8px;
-    background-color: #fff;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .poll-options button:hover,
-  .poll-options label:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .poll-options button.selected {
-    background-color: #d4edda;
-    border-color: #568183; 
-    color: 2b3939;
-    font-weight: bold;
-  }
-  
-  textarea {
-    font-size: 15px;
-    padding: 10px; 
-    border-radius: 8px;
-    border: 1px solid #ccc;
-  }
-  
-  textarea:focus {
-    outline: none;
-    border-color: #2b3939;
-  }
-  
-  .poll-nav {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  .poll-nav button {
-    font-size: 16px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 8px;
-    background-color: #7ca397; 
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .poll-nav button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-  
-  .poll-results h4 {
-    font-size: 20px;
-  }
-  
-  .poll-nav-btn {
-    font-size: 16px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 8px;
-    background-color: #7ca397;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .poll-nav-btn:hover {
-    background-color: #67887d;
-  }
-  
-  @media (max-width: 600px) {
-  
-    .hiking-poll {
-      margin: 10px; 
-      padding: 15px; 
-      max-width: 100%; 
-    }
-  
-  
-    .poll-nav {
-      flex-direction: column;
-      gap: 10px;
-    }
-  }
-  
-  .name-input {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-  
-  .name-input p {
-    font-size: 18px;
-  }
-  
-  .name-input input[type="text"] {
-    font-size: 16px;
-    padding: 12px;
-    border: 1px solid #aaa;
-    border-radius: 8px;
-    background-color: #fff;
-    transition: border-color 0.2s ease;
-  }
-  
-  .name-input input[type="text"]:focus {
-    outline: none;
-    border-color: #2b3939;
-  }
-  
-  .name-input .poll-nav-btn {
-    align-self: flex-start;
-  }
-  
-  
-  @media (min-width: 600px) and (max-width: 1024px) {
-    .hiking-poll {
-      margin-top: -100px;
-      max-width: 90%;
-    }
-  
-    .poll-options button,
-    .poll-options label {
-      font-size: 20zpx;
-    }
-  
-  }
-  
-
-  
-  
+}

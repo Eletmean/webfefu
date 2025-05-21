@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import startImage from '../images/poll2.jpg';
+import resultImage from '../images/poll1.jpg';
 
 const HikingPoll = () => {
   const [name, setName] = useState('');
   const [started, setStarted] = useState(false);
-  const [currentQ, setCurrentQ] = useState(0);
-  const [answers, setAnswers] = useState({});
-  const [showResults, setShowResults] = useState(false);
+  const [currentQ, setCurrentQ] = useState(0); // индекс текущего вопроса
+  const [answers, setAnswers] = useState({}); // объект с ответами (ключ — номер вопроса)
+  const [showResults, setShowResults] = useState(false); 
 
   const questions = [
     {
@@ -30,25 +32,30 @@ const HikingPoll = () => {
     {
       type: 'multi',
       question: "Which items do you always carry with you?",
-      options: ["GPS", "Thermos", "First aid kit", "Multitool", "Extra food", "Flashlight"]
+      options: ["GPS", "Thermos", "First aid kit", "Multitool"]
     }
   ];
 
   const handleAnswer = (value) => {
-    setAnswers(prev => ({ ...prev, [currentQ]: value }));
+    if (questions[currentQ].type === 'text') { // если текст то валидируем 
+      const filteredValue = value.replace(/[^A-Za-z0-9\s.,!?'"():;@#&$%*+\-=/\\\n\r]/g, '');
+      setAnswers(prev => ({ ...prev, [currentQ]: filteredValue })); //бновляет ответ на текущий вопрос и сохраняет остальные ответы без изменений.
+    } else {
+      setAnswers(prev => ({ ...prev, [currentQ]: value })); // иначе просто напрямую сохраняем
+    }
   };
 
-  const handleMultiChange = (option) => {
-    const selected = answers[currentQ] || [];
-    const updated = selected.includes(option)
-      ? selected.filter(o => o !== option)
-      : [...selected, option];
+  const handleMultiChange = (option) => { // множественный выбор опшн
+    const selected = answers[currentQ] || []; // если пусто (ниче не выбрали) подставим пустой массив 
+    const updated = selected.includes(option) //проверяем, есть ли в массиве селектед уже такой вариант опшн
+      ? selected.filter(o => o !== option) // если да  новый массив, где только те элементы, которые не равны опшн.
+      : [...selected, option]; // если нет то новый массив 
     handleAnswer(updated);
   };
 
-  const handleSubmit = () => setShowResults(true);
+  const handleSubmit = () => setShowResults(true); 
 
-  const determineType = () => {
+  const determineType = () => { // опеределяем какой тип у пользователя
     const [gear, checkFreq, backpack] = [answers[0], answers[1], answers[2]];
     if (gear === "All three" && checkFreq === "Before every hike" && backpack === "70L+") {
       return "Survivalist";
@@ -59,27 +66,32 @@ const HikingPoll = () => {
     }
   };
 
-  const isAnswered = () => {
+  const isAnswered = () => { // чтобы кнопка некст не работала если на вопросик не ответили
     const ans = answers[currentQ];
     return questions[currentQ].type === 'text'
-      ? !!ans?.trim()
+      ? !!ans?.trim() // ?	Оператор проверки на null, !! певращает значение в true/false
       : Array.isArray(ans)
         ? ans.length > 0
         : !!ans;
   };
 
+  const handleNameChange = (e) => {
+    const filteredValue = e.target.value.replace(/[^A-Za-z\s]/g, '');
+    setName(filteredValue);
+  };
+
   return (
     <div className="hiking-poll">
-      <h3>Quiz: What Type of Mountaineer Are You?</h3>
-
       {!started ? (
         <div className="name-input">
+          <h3>Quiz: What Type of Mountaineer Are You?</h3>
+          <img src={startImage} alt="" className="start-image" />
           <p>Please enter your name to begin:</p>
           <input
             type="text"
             value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Your name"
+            onChange={handleNameChange}
+            placeholder="Your name (English only)"
           />
           <button
             onClick={() => setStarted(true)}
@@ -91,19 +103,27 @@ const HikingPoll = () => {
         </div>
       ) : showResults ? (
         <div className="poll-results">
-          <h4>{name}, you are a <em>{determineType()}</em>!</h4>
-          <button className="poll-nav-btn" onClick={() => {
-            setShowResults(false);
-            setAnswers({});
-            setCurrentQ(0);
-            setStarted(false);
-            setName('');
-          }}>
+          <h3>Quiz: What Type of Mountaineer Are You?</h3>
+          <div className="result-content">
+            <h2>{name}, you are a <span className="result-type">{determineType()}</span>!</h2>
+            <img src={resultImage} alt="" className="result-image" />
+          </div>
+          <button 
+            className="poll-nav-btn try-again-btn"
+            onClick={() => { // Сброс всех состояний до начального
+              setShowResults(false);
+              setAnswers({});
+              setCurrentQ(0);
+              setStarted(false);
+              setName('');
+            }}
+          >
             Try Again
           </button>
         </div>
       ) : (
         <>
+          <h3>Quiz: What Type of Mountaineer Are You?</h3>
           <div className="poll-question">
             <p>{questions[currentQ].question}</p>
             <div className="poll-options">
@@ -136,7 +156,7 @@ const HikingPoll = () => {
                   cols="40"
                   value={answers[currentQ] || ''}
                   onChange={(e) => handleAnswer(e.target.value)}
-                  placeholder="Type your answer here..."
+                  placeholder="Type your answer here (English only)..."
                 />
               )}
             </div>

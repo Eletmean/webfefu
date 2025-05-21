@@ -1,41 +1,65 @@
-import React, { useState, useEffect, useRef } from 'react'; 
-import { Link } from 'react-router-dom'; //чтобы делать переходы по страницам 
-
-import logo from '../images/logo.png';  
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../images/logo.png';
 import basket from '../images/basket.png';
-import lk from '../images/lk.png'; 
-
+import lk from '../images/lk.png';
 import '../styles/burger.css';
 
 function BurgerMenu() {
-  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false); //по умолчанию закрыть  setmob для изм состояния  
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false); // для отслеживания состояния (открыто/закрыто и изменение)
+  const [activeSubmenu, setActiveSubmenu] = useState(null);
 
-  const menuRef = useRef(null); // сслылки чтобы отслеживать клики вне этих элементов (меню и кнопки меню)
-  const burgerRef = useRef(null);
+  const menuRef = useRef(null); // проверка был ли клик внутри меню если нет то закрываем меню 
+  const burgerRef = useRef(null); // тоже самое для бургера
 
-  const toggleMenu = () => { 
-    setMobileMenuOpen(!isMobileMenuOpen); //открыто закрыто меню
+  const toggleMenu = () => { // открывем закрываем бургир
+    setMobileMenuOpen(!isMobileMenuOpen);
+    setActiveSubmenu(null); // Закрываем все подменю при открытии/закрытии бургера
   };
 
-  // Закрытие меню при клике вне его области
+  const toggleSubmenu = (menuName, e) => {
+    e.stopPropagation(); //нужно чтобы клик по подменю не срабатывал как клик вне меню
+    setActiveSubmenu(activeSubmenu === menuName ? null : menuName); // чтобы соотв подменю скрылось или открылось 
+  }; 
+
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event) => { //Обработчик клика вне меню
       if (
-        menuRef.current && !menuRef.current.contains(event.target) && // target — проверяет, что клик был НЕ внутри меню, current проверка на наличие ссылки
+        menuRef.current && !menuRef.current.contains(event.target) && //contains проверяет элемент, по которому кликнули, внутри меню иои нет
         burgerRef.current && !burgerRef.current.contains(event.target)
       ) {
-        setMobileMenuOpen(false); 
+        setMobileMenuOpen(false); //клик вне элементов, все закрывеам 
+        setActiveSubmenu(null);
       }
     };
-
-    // Слушаем события клика на документ
-    document.addEventListener('click', handleClickOutside);
-
-   
+    document.addEventListener('click', handleClickOutside); //попдключаем проверку клика на весь документ.
     return () => {
-      document.removeEventListener('click', handleClickOutside);  // чтобы обработчик не остался висеть и срабатывать на каждый клик по странице
+      document.removeEventListener('click', handleClickOutside); // выкл проверку
     };
   }, []);
+
+  const menuData = {
+    "HOME": [
+      { text: "Home", link: "/" },
+      { text: "News", link: "/news" },
+      { text: "Promo", link: "/promo" }
+    ],
+    "ABOUT": [
+      { text: "Table", link: "/table" },
+      { text: "Bank", link: "/bank" },
+      { text: "Contracts", link: "/contracts" }
+    ],
+    "POLL": [
+      { text: "Poll", link: "/poll" },
+      { text: "Voting", link: "/voting" },
+      { text: "Survey", link: "/survey" }
+    ],
+    "CONTACT": [
+      { text: "Emergency", link: "/emergency" },
+      { text: "Payments", link: "/payments" },
+      { text: "Student-help", link: "/student-help" }
+    ]
+  };
 
   return (
     <header>
@@ -46,31 +70,49 @@ function BurgerMenu() {
         </div>
 
         <div 
-          className={`burger ${isMobileMenuOpen ? 'active' : ''}`} // для стилей 
-          onClick={toggleMenu} //Когда пользователь кликает на бургер-кнопку, вызывается функция toggleMenu, если закрыто откроет и наоборот
-          ref={burgerRef} 
+          className={`burger ${isMobileMenuOpen ? 'active' : ''}`}
+          onClick={toggleMenu}
+          ref={burgerRef}
         >
-          <span></span> {/*полоски бургера */}
+          <span></span>
           <span></span>
           <span></span>
         </div>
 
         <div className={`nav ${isMobileMenuOpen ? 'active' : ''}`} ref={menuRef}>
-          <ul>
-          <li><Link to="/" className="nav-item">HOME</Link></li>
-          <li><Link to="/table" className="nav-item">ABOUT</Link></li>
-          <li><Link to="/poll" className="nav-item">POLL</Link></li>
-          <li><Link to="/contact" className="nav-item">CONTACT</Link></li>
-          <li><Link to="/cart" className="nav-item">
-           <img src={basket} alt="basket" className="icon" />
-          </Link></li>
-         <li><Link to="/account" className="nav-item">
-          <img src={lk} alt="lk" className="icon" />
-          </Link></li>
-         </ul>
+          <ul className="main-menu">
+            {Object.keys(menuData).map((menuKey) => (
+              <li className="menu-item" key={menuKey}>
+                <div 
+                  className="nav-item"
+                  onClick={(e) => toggleSubmenu(menuKey, e)}
+                >
+                  {menuKey}
+                </div>
+                <ul className={`submenu ${activeSubmenu === menuKey ? 'active' : ''}`}>
+                  {menuData[menuKey].map((item) => (
+                    <li key={item.text}>
+                      <Link to={item.link} className="submenu-link">{item.text}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+            <li className="menu-item">
+              <Link to="/cart" className="nav-item">
+                <img src={basket} alt="basket" className="icon" />
+              </Link>
+            </li>
+            <li className="menu-item">
+              <Link to="/account" className="nav-item">
+                <img src={lk} alt="lk" className="icon" />
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
     </header>
   );
 }
+
 export default BurgerMenu;
